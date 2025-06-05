@@ -17,6 +17,7 @@ interface AppContextProps {
   updateTextField2: (text: string) => void;
   updateTaxiName: (index: number, name: string) => void;
   resetPassword: (newPassword: string) => void; // Stub implementation
+  checkPassword: (input: string) => boolean;
 }
 
 const defaultState: TaxiState = {
@@ -78,6 +79,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     console.log(`Password reset to: ${newPassword}`);
   };
 
+  const checkPassword = (input: string) => {
+  return input === 'admin123'; // 🔐 You can improve this later
+};
+
   return (
     <AppContext.Provider
       value={{
@@ -87,6 +92,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateTextField2,
         updateTaxiName,
         resetPassword,
+        checkPassword,
       }}
     >
       {children}
