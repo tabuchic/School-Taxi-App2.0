@@ -18,6 +18,8 @@ interface AppContextProps {
   updateTaxiName: (index: number, name: string) => void;
   resetPassword: (newPassword: string) => void; // Stub implementation
   checkPassword: (input: string) => boolean;
+  isAdmin: boolean;
+  setIsAdmin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultState: TaxiState = {
@@ -32,6 +34,7 @@ const AppContext = createContext<AppContextProps | undefined>(undefined);
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [taxiState, setTaxiState] = useState<TaxiState>(defaultState);
   const DOC_REF = doc(db, 'state', 'taxi');
+  const [isAdmin, setIsAdmin] = useState(false); 
 
   // Sync Firestore to state
   useEffect(() => {
@@ -93,6 +96,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateTaxiName,
         resetPassword,
         checkPassword,
+        isAdmin,      
+        setIsAdmin, 
       }}
     >
       {children}
