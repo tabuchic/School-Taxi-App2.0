@@ -1,0 +1,103 @@
+// src/contexts/AppContext.ts
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import db from '@/firebase';
+import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+
+interface TaxiState {
+  selectedColors: boolean[];
+  textField1: string;
+  textField2: string;
+  taxiNames: string[];
+}
+
+interface AppContextProps {
+  taxiState: TaxiState;
+  updateSelectedColors: (colors: boolean[]) => void;
+  updateTextField1: (text: string) => void;
+  updateTextField2: (text: string) => void;
+  updateTaxiName: (index: number, name: string) => void;
+  resetPassword: (newPassword: string) => void; // Stub implementation
+}
+
+const defaultState: TaxiState = {
+  selectedColors: new Array(24).fill(false),
+  textField1: '',
+  textField2: '',
+  taxiNames: new Array(24).fill('').map((_, i) => `Taxi ${i + 1}`),
+};
+
+const AppContext = createContext<AppContextProps | undefined>(undefined);
+
+export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [taxiState, setTaxiState] = useState<TaxiState>(defaultState);
+  const DOC_REF = doc(db, 'state', 'taxi');
+
+  // Sync Firestore to state
+  useEffect(() => {
+    const unsubscribe = onSnapshot(DOC_REF, (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        setTaxiState({
+          selectedColors: data.selectedColors || defaultState.selectedColors,
+          textField1: data.textField1 || '',
+          textField2: data.textField2 || '',
+          taxiNames: data.taxiNames || defaultState.taxiNames,
+        });
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Firestore update helpers
+  const updateFirestore = (newState: Partial<TaxiState>) => {
+    const updatedState = { ...taxiState, ...newState };
+    setTaxiState(updatedState);
+    setDoc(DOC_REF, updatedState);
+  };
+
+  const updateSelectedColors = (colors: boolean[]) => {
+    updateFirestore({ selectedColors: colors });
+  };
+
+  const updateTextField1 = (text: string) => {
+    updateFirestore({ textField1: text });
+  };
+
+  const updateTextField2 = (text: string) => {
+    updateFirestore({ textField2: text });
+  };
+
+  const updateTaxiName = (index: number, name: string) => {
+    const newNames = [...taxiState.taxiNames];
+    newNames[index] = name;
+    updateFirestore({ taxiNames: newNames });
+  };
+
+  const resetPassword = (newPassword: string) => {
+    // Add actual secure password update logic if needed
+    console.log(`Password reset to: ${newPassword}`);
+  };
+
+  return (
+    <AppContext.Provider
+      value={{
+        taxiState,
+        updateSelectedColors,
+        updateTextField1,
+        updateTextField2,
+        updateTaxiName,
+        resetPassword,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+export const useAppContext = () => {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error('useAppContext must be used within an AppProvider');
+  }
+  return context;
+}
