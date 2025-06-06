@@ -53,10 +53,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, []);
 
   // Firestore update helpers
-  const updateFirestore = (newState: Partial<TaxiState>) => {
-    const updatedState = { ...taxiState, ...newState };
-    setTaxiState(updatedState);
-    setDoc(DOC_REF, updatedState);
+  const updateFirestore = async (newState: Partial<TaxiState>) => {
+  const updatedState = { ...taxiState, ...newState };
+  setTaxiState(updatedState); // local update
+  try {
+    await setDoc(DOC_REF, updatedState); // remote update
+  } catch (err) {
+    console.error('Failed to update Firestore:', err);
+  }
   };
 
   const updateSelectedColors = (colors: boolean[]) => {

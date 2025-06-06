@@ -31,28 +31,10 @@ const TeacherView: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Separator className="my-4" />
-
-        {/* Full Taxi Overview */}
-        <Card className="mb-6 shadow-lg">
+         {/* Announcements */}
+        <Card className="mb-6 shadow-lg border border-yellow-300 bg-yellow-50">
           <CardContent className="p-6">
-            <h3 className="text-xl font-semibold mb-4 text-gray-800">All Taxis</h3>
-            <TaxiColors
-              colors={TAXI_COLORS}
-              selectedColors={taxiState.selectedColors}
-              taxiNames={TAXI_NAMES} // ✅ Updated to use shared labels
-              onColorToggle={() => {}}
-              onNameChange={() => {}}
-              isClickable={false}
-              showLabels={true}
-            />
-          </CardContent>
-        </Card>
-
-        {/* Announcements */}
-        <Card className="mb-6 shadow-lg">
-          <CardContent className="p-6">
-            <h3 className="text-xl font-semibold mb-4 text-gray-800">Announcements</h3>
+            <h3 className="text-xl font-semibold mb-4 text-yellow-800">📣 Announcements</h3>
             <div className="space-y-4">
               <div>
                 <Label htmlFor="text1">Announcement 1</Label>
@@ -77,6 +59,26 @@ const TeacherView: React.FC = () => {
             </div>
           </CardContent>
         </Card>
+
+        <Separator className="my-4" />
+
+        {/* Full Taxi Overview */}
+        <Card className="mb-6 shadow-lg">
+          <CardContent className="p-6">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">All Taxis</h3>
+            <TaxiColors
+              colors={TAXI_COLORS}
+              selectedColors={taxiState.selectedColors}
+              taxiNames={TAXI_NAMES} // ✅ Updated to use shared labels
+              onColorToggle={() => {}}
+              onNameChange={() => {}}
+              isClickable={false}
+              showLabels={true}
+            />
+          </CardContent>
+        </Card>
+
+       
       </div>
     </div>
   );

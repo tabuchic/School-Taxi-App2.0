@@ -71,32 +71,10 @@ const AdminView: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Separator className="my-4" />
-
-        {/* Taxi Selection */}
-        <Card className="mb-6 shadow-lg">
-          <CardContent className="p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-semibold text-gray-800">Select Available Taxis</h3>
-              <Button onClick={clearAll} variant="outline" size="sm">
-                Clear All
-              </Button>
-            </div>
-            <TaxiColors
-              colors={TAXI_COLORS}
-              selectedColors={taxiState.selectedColors}
-              taxiNames={TAXI_NAMES}
-              onColorToggle={handleColorToggle}
-              onNameChange={updateTaxiName}
-              isClickable={true}
-            />
-          </CardContent>
-        </Card>
-
         {/* Announcements */}
         <Card className="mb-6 shadow-lg">
           <CardContent className="p-6">
-            <h3 className="text-xl font-semibold mb-4 text-gray-800">Announcements</h3>
+            <h3 className="text-xl font-semibold mb-4 text-yellow-700">📣 Announcements</h3>
             <div className="space-y-4">
               <div>
                 <Label htmlFor="text1">Announcement 1</Label>
@@ -121,6 +99,30 @@ const AdminView: React.FC = () => {
             </div>
           </CardContent>
         </Card>
+
+        <Separator className="my-4" />
+
+        {/* Taxi Selection */}
+        <Card className="mb-6 shadow-lg">
+          <CardContent className="p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold text-gray-800">Select Available Taxis</h3>
+              <Button onClick={clearAll} variant="outline" size="sm">
+                Clear All
+              </Button>
+            </div>
+            <TaxiColors
+              colors={TAXI_COLORS}
+              selectedColors={taxiState.selectedColors}
+              taxiNames={TAXI_NAMES}
+              onColorToggle={handleColorToggle}
+              onNameChange={updateTaxiName}
+              isClickable={true}
+            />
+          </CardContent>
+        </Card>
+
+        
 
         {/* Security Section */}
         <Card className="shadow-lg">
