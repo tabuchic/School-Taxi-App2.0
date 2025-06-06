@@ -72,18 +72,18 @@ const AdminView: React.FC = () => {
         </Card>
 
         {/* Announcements */}
-        <Card className="mb-6 shadow-lg">
+        <Card className="mb-6 shadow-lg border border-yellow-300 bg-yellow-50">
           <CardContent className="p-6">
-            <h3 className="text-xl font-semibold mb-4 text-yellow-700">📣 Announcements</h3>
-            <div className="space-y-4">
-              <div>
+            <h3 className="text-xl font-semibold mb-4 text-yellow-800">📣 Announcements</h3>
+           <div className="space-y-4">
+             <div>
                 <Label htmlFor="text1">Announcement 1</Label>
                 <Textarea
-                  id="text1"
+                 id="text1"
                   value={taxiState.textField1}
                   onChange={(e) => updateTextField1(e.target.value)}
-                  placeholder="Enter first announcement..."
-                  className="mt-1"
+                 placeholder="Enter first announcement..."
+                 className="mt-1 bg-white"
                 />
               </div>
               <div>
@@ -93,12 +93,13 @@ const AdminView: React.FC = () => {
                   value={taxiState.textField2}
                   onChange={(e) => updateTextField2(e.target.value)}
                   placeholder="Enter second announcement..."
-                  className="mt-1"
+                  className="mt-1 bg-white"
                 />
               </div>
             </div>
           </CardContent>
         </Card>
+
 
         <Separator className="my-4" />
 
