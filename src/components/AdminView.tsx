@@ -135,7 +135,7 @@ const AdminView: React.FC = () => {
             <Button onClick={() => setShowResetDialog(true)} variant="destructive">
               Reset Admin Password
             </Button>
-            <p className="text-sm text-gray-600 mt-2">Change the admin panel password</p>
+            <p className="text-sm text-gray-600 mt-2">Change the admin panel password (still in Development)</p>
           </CardContent>
         </Card>
       </div>
