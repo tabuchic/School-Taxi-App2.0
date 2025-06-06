@@ -20,6 +20,7 @@ interface AppContextProps {
   checkPassword: (input: string) => boolean;
   isAdmin: boolean;
   setIsAdmin: React.Dispatch<React.SetStateAction<boolean>>;
+  updateFirestore: (newState: Partial<TaxiState>) => void;
 }
 
 const defaultState: TaxiState = {
@@ -102,6 +103,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         checkPassword,
         isAdmin,      
         setIsAdmin, 
+        updateFirestore,
       }}
     >
       {children}

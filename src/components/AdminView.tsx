@@ -19,6 +19,7 @@ const AdminView: React.FC = () => {
     updateTextField2,
     updateTaxiName,
     resetPassword,
+    updateFirestore,
   } = useAppContext();
 
   const [showResetDialog, setShowResetDialog] = useState(false);
@@ -31,10 +32,12 @@ const AdminView: React.FC = () => {
   };
 
   const clearAll = () => {
-    updateSelectedColors(new Array(TAXI_COLORS.length).fill(false));
-    updateTextField1('');
-    updateTextField2('');
-  };
+  updateFirestore({
+    selectedColors: new Array(taxiState.selectedColors.length).fill(false),
+    textField1: '',
+    textField2: '',
+  });
+};
 
   const handlePasswordReset = (newPassword: string) => {
     resetPassword(newPassword);
